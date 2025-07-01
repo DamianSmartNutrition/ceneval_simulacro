@@ -122,7 +122,6 @@ export default function App() {
   const [autenticado, setAutenticado] = useState(false);
   const [errorClave, setErrorClave] = useState(false);
 
-  // Para que el mensaje de error desaparezca solo
   useEffect(() => {
     if (errorClave) {
       const timeout = setTimeout(() => setErrorClave(false), 3000);
@@ -136,7 +135,6 @@ export default function App() {
   const [mostrarResultado, setMostrarResultado] = useState(false);
   const [aciertos, setAciertos] = useState(0);
 
-  // Manejar ingreso de clave
   const handleLogin = () => {
     if (clave === "Damthedevil25") {
       setAutenticado(true);
@@ -184,25 +182,24 @@ export default function App() {
     );
   }
 
-  // Cuestionario
   const preguntaActual = preguntasAleatorias[indice];
   const finalizar = indice + 1 === preguntasAleatorias.length;
 
   const verificarRespuesta = (index: number) => {
     setSeleccion(index);
     setMostrarResultado(true);
-    if (index === preguntaActual.correcta && seleccion === null) {
+    if (index === preguntaActual.correcta) {
       setAciertos((prev) => prev + 1);
     }
   };
 
-const siguientePregunta = () => {
-  setSeleccion(null);
-  setMostrarResultado(false);
-  setIndice((prev) =>
-    prev + 1 < preguntasAleatorias.length ? prev + 1 : prev
-  );
-};
+  const siguientePregunta = () => {
+    setSeleccion(null);
+    setMostrarResultado(false);
+    setIndice((prev) =>
+      prev + 1 < preguntasAleatorias.length ? prev + 1 : prev
+    );
+  };
 
   return (
     <div
@@ -212,7 +209,6 @@ const siguientePregunta = () => {
           "linear-gradient(135deg, #fef6e4 0%, #fde68a 50%, #a7f3d0 100%)",
       }}
     >
-      {/* Fondo decorativo de frutas */}
       <img
         src={fruitBg}
         alt="fruta"
@@ -223,7 +219,6 @@ const siguientePregunta = () => {
         alt="fruta"
         className="absolute right-0 bottom-0 w-40 opacity-30 blur-sm select-none pointer-events-none rotate-180"
       />
-      {/* Palabras alusivas */}
       <div className="absolute left-1/2 top-10 -translate-x-1/2 text-5xl font-extrabold text-emerald-400 opacity-20 select-none pointer-events-none tracking-widest">
         Salud
       </div>
@@ -277,25 +272,13 @@ const siguientePregunta = () => {
                   </li>
                 ))}
               </ul>
-              {mostrarResultado && (
-                <div className="mt-4">
-                  <p className="font-semibold">
-                    {seleccion === preguntaActual.correcta
-                      ? "✅ Correcto"
-                      : "❌ Incorrecto"}
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    {preguntaActual.explicacion}
-                  </p>
-                  {indice + 1 < preguntas.length && (
-                    <button
-                      onClick={siguientePregunta}
-                      className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
-                    >
-                      Siguiente
-                    </button>
-                  )}
-                </div>
+              {mostrarResultado && !finalizar && (
+                <button
+                  onClick={siguientePregunta}
+                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
+                >
+                  Siguiente
+                </button>
               )}
             </>
           )}
