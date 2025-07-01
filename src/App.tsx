@@ -113,10 +113,8 @@ function shuffleArray<T>(array: T[]): T[] {
   }
   return arr;
 }
-
-const preguntasAleatorias = useMemo(() => shuffleArray(preguntas), []);
-
 export default function App() {
+  const preguntasAleatorias = useMemo(() => shuffleArray(preguntas), []);
   const [indice, setIndice] = useState(0);
   const [seleccion, setSeleccion] = useState<number | null>(null);
   const [mostrarResultado, setMostrarResultado] = useState(false);
