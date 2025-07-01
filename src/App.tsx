@@ -151,7 +151,7 @@ export default function App() {
         <img
           src={logo}
           alt="Smart Nutrition Logo"
-          className="w-40 h-40 mb-6 drop-shadow-lg"
+          className="w-50 h-50 mb-6 drop-shadow-lg"
         />
         <h1 className="text-3xl font-extrabold mb-6 text-emerald-700 select-none">
           Acceso al Simulacro CENEVAL Nutrición
