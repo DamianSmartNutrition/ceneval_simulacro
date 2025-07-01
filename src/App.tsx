@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import logo from "./Smart_logo.svg";
 import fruitBg from "./fruit-bg.svg";
 
-interface Pregunta {
+interface Pregunta { 
   pregunta: string;
   opciones: string[];
   correcta: number;
