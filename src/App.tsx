@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import logo from "./Smart_logo.svg";
 import fruitBg from "./fruit-bg.svg";
 
@@ -73,7 +73,7 @@ const preguntas: Pregunta[] = [
     ],
     correcta: 1,
     explicacion:
-      "en el equilibrio de ser barato y proporcionar calorías de forma eficiente, la rebanada de pan es la opción más adecuada",
+      "En el equilibrio de ser barato y proporcionar calorías de forma eficiente, la rebanada de pan es la opción más adecuada.",
   },
   {
     pregunta:
@@ -184,7 +184,7 @@ export default function App() {
     );
   }
 
-  // Cuestionario (igual que antes)
+  // Cuestionario
   const preguntaActual = preguntasAleatorias[indice];
   const finalizar = indice + 1 === preguntasAleatorias.length;
 
@@ -243,9 +243,7 @@ export default function App() {
         <div className="bg-white shadow p-4 rounded-xl">
           {finalizar ? (
             <div className="text-center">
-              <h2 className="text-2xl font-bold mb-5">
-                ¡Simulacro finalizado!
-              </h2>
+              <h2 className="text-2xl font-bold mb-5">¡Simulacro finalizado!</h2>
               <p className="text-lg font-semibold mb-2">
                 Tu puntaje: {aciertos} de {preguntasAleatorias.length}
               </p>
