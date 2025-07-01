@@ -196,11 +196,13 @@ export default function App() {
     }
   };
 
-  const siguientePregunta = () => {
-    setSeleccion(null);
-    setMostrarResultado(false);
-    setIndice((prev) => prev + 1);
-  };
+const siguientePregunta = () => {
+  setSeleccion(null);
+  setMostrarResultado(false);
+  setIndice((prev) =>
+    prev + 1 < preguntasAleatorias.length ? prev + 1 : prev
+  );
+};
 
   return (
     <div
