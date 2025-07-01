@@ -66,7 +66,7 @@ const preguntas: Pregunta[] = [
     pregunta:
       "En términos de precio por calorías, ¿cuál de los siguientes alimentos es el más barato y más nutritivo?",
     opciones: [
-      "Una MANZANA",
+      "Una manzana",
       "Rebanada de pan",
       "hamburguesa con queso",
       "Brócoli",
