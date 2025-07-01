@@ -113,14 +113,80 @@ function shuffleArray<T>(array: T[]): T[] {
   }
   return arr;
 }
+
 export default function App() {
   const preguntasAleatorias = useMemo(() => shuffleArray(preguntas), []);
+
+  // Estados para login
+  const [clave, setClave] = useState("");
+  const [autenticado, setAutenticado] = useState(false);
+  const [errorClave, setErrorClave] = useState(false);
+
+  // Para que el mensaje de error desaparezca solo
+  useEffect(() => {
+    if (errorClave) {
+      const timeout = setTimeout(() => setErrorClave(false), 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [errorClave]);
+
+  // Estados del cuestionario
   const [indice, setIndice] = useState(0);
   const [seleccion, setSeleccion] = useState<number | null>(null);
   const [mostrarResultado, setMostrarResultado] = useState(false);
   const [aciertos, setAciertos] = useState(0);
 
+  // Manejar ingreso de clave
+  const handleLogin = () => {
+    if (clave === "Damthedevil25") {
+      setAutenticado(true);
+      setErrorClave(false);
+    } else {
+      setErrorClave(true);
+      setClave("");
+    }
+  };
+
+  if (!autenticado) {
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-yellow-100 via-yellow-200 to-green-100 px-4">
+        <img
+          src={logo}
+          alt="Smart Nutrition Logo"
+          className="w-40 h-40 mb-6 drop-shadow-lg"
+        />
+        <h1 className="text-3xl font-extrabold mb-6 text-emerald-700 select-none">
+          Acceso al Simulacro CENEVAL Nutrición
+        </h1>
+        <input
+          type="password"
+          value={clave}
+          onChange={(e) => setClave(e.target.value)}
+          className="border border-gray-300 rounded-md px-4 py-3 mb-4 w-72 text-center text-lg focus:outline-none focus:ring-4 focus:ring-emerald-400 focus:border-emerald-400 shadow-md"
+          placeholder="Ingrese la clave de acceso"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleLogin();
+          }}
+          autoFocus
+        />
+        <button
+          onClick={handleLogin}
+          className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-md shadow-md font-semibold transition-colors duration-300"
+        >
+          Entrar
+        </button>
+        {errorClave && (
+          <p className="mt-3 text-red-600 font-semibold animate-fade-in">
+            Clave incorrecta, intenta de nuevo.
+          </p>
+        )}
+      </div>
+    );
+  }
+
+  // Cuestionario (igual que antes)
   const preguntaActual = preguntasAleatorias[indice];
+  const finalizar = indice + 1 === preguntasAleatorias.length;
 
   const verificarRespuesta = (index: number) => {
     setSeleccion(index);
@@ -135,8 +201,6 @@ export default function App() {
     setMostrarResultado(false);
     setIndice((prev) => prev + 1);
   };
-
-  const finalizar = indice + 1 === preguntasAleatorias.length;
 
   return (
     <div
